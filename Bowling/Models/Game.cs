@@ -12,20 +12,30 @@ namespace Bowling.Models
             Frames = new List<Frame>();
         }
 
+        public Frame GetCurrentFrame()
+        {
+            var currentFrame = Frames.LastOrDefault();
+            if (currentFrame == null || currentFrame.IsComplete())
+            {
+                Frames.Add(new Frame(Frames.Count + 1));
+            }
+            return Frames.LastOrDefault();
+        }
+
         public int GetScore()
         {
-            int score = CompletedFrames().Select(f => f.PinCount()).Sum();
+            int score = CompletedFrames().Select(f => f.PinsKnockedDown()).Sum();
 
             foreach (var frm in CompletedFrames())
             {
                 if (frm.IsStrike())
                 {
-                    score += RollsAfterFrame(frm.FrameNumber, 2).Select(r => r.Pins).Sum();
+                    score += RollsAfterFrame(frm.FrameNumber, 2).Select(r => r.PinsKnockedDown).Sum();
                 }
 
                 if (frm.IsSpare())
                 {
-                    score += RollsAfterFrame(frm.FrameNumber, 1).Select(r => r.Pins).Sum();
+                    score += RollsAfterFrame(frm.FrameNumber, 1).Select(r => r.PinsKnockedDown).Sum();
                 }
             }
             return score;

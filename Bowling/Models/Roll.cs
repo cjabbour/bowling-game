@@ -3,11 +3,11 @@ namespace Bowling.Models
 {
     public class Roll
     {
-        public int Pins { get; set; }
+        public int PinsKnockedDown { get; set; }
 
         public Roll(int pins)
         {
-            Pins = pins;
+            PinsKnockedDown = pins;
         }
     }
 }
