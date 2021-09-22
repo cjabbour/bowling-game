@@ -16,27 +16,38 @@ namespace Bowling.Models
 
         private int MaxRollCount() => FrameNumber == 10 ? 3 : 2;
 
-        public int PinCount() => Rolls.Select(r => r.Pins).Sum();
+        public int PinsKnockedDown() => Rolls.Select(r => r.PinsKnockedDown).Sum();
+
+        public int PinsStanding()
+        {
+            if (FrameNumber == 10)
+            {
+                if (Rolls.Count == 1 && PinsKnockedDown() == 10) return 10; // 2nd roll, 1st was strike, start fresh
+                if (Rolls.Count == 2) return 10 - (PinsKnockedDown() % 10);        // 3rd roll, always start fresh
+
+            }
+            return 10 - PinsKnockedDown();
+        }
 
         public bool IsComplete()
         {
             if (Rolls.Count == MaxRollCount()) return true;
             
-            if (FrameNumber < 10) return PinCount() == 10;
+            if (FrameNumber < 10) return PinsKnockedDown() == 10;
 
-            if (FrameNumber == 10 && Rolls.Count == 2 && PinCount() < 10) return true;
+            if (FrameNumber == 10 && Rolls.Count == 2 && PinsKnockedDown() < 10) return true;
             
             return false;
         }
 
         public bool IsStrike()
         {
-            return Rolls?.Count == 1 && PinCount() == 10;
+            return Rolls?.Count == 1 && PinsKnockedDown() == 10;
         }
 
         public bool IsSpare()
         {
-            return Rolls?.Count == MaxRollCount() && PinCount() == 10;
+            return Rolls?.Count == MaxRollCount() && PinsKnockedDown() == 10;
         }
     }
 }
