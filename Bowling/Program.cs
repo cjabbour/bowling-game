@@ -1,5 +1,4 @@
-﻿using System;
-using Bowling.Models;
+﻿using Bowling.Models;
 using Spectre.Console;
 
 namespace Bowling
@@ -26,21 +25,17 @@ namespace Bowling
 
         private static int PromptForPins(string prompt, int pinsStanding)
         {
-            while (true)
-            {
-                var pins = AnsiConsole.Prompt(
-                    new TextPrompt<int>("[aqua]" + prompt + "[/]")
-                        .PromptStyle("green")
-                        .ValidationErrorMessage("[red]Gotta be a number between 0 and " + pinsStanding + ".[/]")
-                        .Validate(input =>
-                        {
-                            if (input < 0 || input > pinsStanding)
-                                return ValidationResult.Error();
-                            return ValidationResult.Success();
-                        })
-                );
-                return pins;
-            }
+            return AnsiConsole.Prompt(
+                new TextPrompt<int>("[aqua]" + prompt + "[/]")
+                    .PromptStyle("green")
+                    .ValidationErrorMessage("[red]Gotta be a number between 0 and " + pinsStanding + ".[/]")
+                    .Validate(input =>
+                    {
+                        if (input < 0 || input > pinsStanding)
+                            return ValidationResult.Error();
+                        return ValidationResult.Success();
+                    })
+            );
         }
 
         private static void DisplayMessage(int score)
