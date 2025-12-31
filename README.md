@@ -8,12 +8,17 @@ A simple console application that simulates a ten-pin bowling game, built with .
 - Accurate scoring for strikes, spares, and open frames
 - Fun feedback messages based on your final score
 - Modular code structure with clear separation of game logic
+- **Improved User Experience with [Spectre.Console](https://spectreconsole.net/):**
+  - Colored prompts and output
+  - Enhanced input validation
+  - Visually appealing score and feedback display
 
 ## Getting Started
 
 ### Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download) or later
+- [Spectre.Console](https://www.nuget.org/packages/Spectre.Console) NuGet package (already included)
 
 ### Build and Run
 
@@ -38,7 +43,7 @@ A simple console application that simulates a ten-pin bowling game, built with .
 - The game will prompt you for the number of pins knocked down in each roll.
 - Enter a number between 0 and the number of pins standing.
 - The game continues for 10 frames, handling strikes and spares according to standard bowling rules.
-- At the end, your total score and a feedback message will be displayed.
+- At the end, your total score and a feedback message will be displayed with enhanced formatting.
 
 ## Project Structure
 
